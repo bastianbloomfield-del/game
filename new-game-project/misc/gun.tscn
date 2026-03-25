@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://craykmotdx4qg"]
+
+[ext_resource type="Script" path="res://Common/weapons/Ranged/Task/ranged_task.gd" id="1_m4i3s"]
+[ext_resource type="Texture2D" uid="uid://bvgju7ks1csjj" path="res://Assets/test.png" id="2_tgbgj"]
+[ext_resource type="PackedScene" uid="uid://dkl2c0dx4b6vh" path="res://Common/weapons/Ranged/mod_ui.tscn" id="3_4ed3h"]
+[ext_resource type="Resource" uid="uid://b6uaioja3rr7y" path="res://Common/weapons/modinvs/main_scope_inv.tres" id="4_5jy4x"]
+[ext_resource type="Resource" uid="uid://5tfvcrxko8st" path="res://Common/weapons/modinvs/main_barrel_inv.tres" id="5_dnga1"]
+[ext_resource type="Resource" uid="uid://bplw3rusj2pk8" path="res://Common/weapons/modinvs/main_ammo_inv.tres" id="6_h2jy8"]
+
+[node name="gun" type="Node2D" node_paths=PackedStringArray("MOD_UI")]
+script = ExtResource("1_m4i3s")
+scope_inventory = ExtResource("4_5jy4x")
+barrel_inventory = ExtResource("5_dnga1")
+ammo_inventory = ExtResource("6_h2jy8")
+max_ammo = 10
+ammo = 10000
+reload_time = 1.0
+shoot_time = 0.2
+damage = 50
+MOD_UI = NodePath("Control")
+
+[node name="shootpos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(16, 0)
+
+[node name="reload_timer" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
+
+[node name="shoot_timer" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(16, 0)
+texture = ExtResource("2_tgbgj")
+
+[node name="Control" parent="." instance=ExtResource("3_4ed3h")]
+scope_inv = ExtResource("4_5jy4x")
+barrel_inv = ExtResource("5_dnga1")
+ammo_inv = ExtResource("6_h2jy8")

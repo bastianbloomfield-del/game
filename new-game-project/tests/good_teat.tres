@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="good_card" load_steps=3 format=3 uid="uid://wkyrfiyj2oii"]
+
+[ext_resource type="Script" path="res://Common/cards/cards/good_card.gd" id="1_tcluf"]
+[ext_resource type="Texture2D" uid="uid://bvgju7ks1csjj" path="res://Assets/test.png" id="2_sgycy"]
+
+[resource]
+script = ExtResource("1_tcluf")
+name = "player speed boost"
+texture = ExtResource("2_sgycy")
+info = "makes player 30% faster"
+effect = "30 faster player"

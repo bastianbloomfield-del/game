@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ammo_mod_inv" load_steps=3 format=3 uid="uid://bplw3rusj2pk8"]
+
+[ext_resource type="Script" path="res://Utilites/components/modcomps/modammo.gd" id="1_nx81w"]
+[ext_resource type="Script" path="res://Utilites/components/modinvs/ammoinv.gd" id="2_ff66q"]
+
+[resource]
+script = ExtResource("2_ff66q")
+ammo = Array[ExtResource("1_nx81w")]([null, null, null, null])

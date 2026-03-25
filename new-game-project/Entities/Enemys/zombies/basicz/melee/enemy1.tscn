@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://ck7edfvgwgm2d"]
+
+[ext_resource type="Script" path="res://Entities/Enemys/zombies/basicz/melee/enemy_1.gd" id="1_dptrc"]
+[ext_resource type="Texture2D" uid="uid://dronj8ubuuee0" path="res://Entities/Enemys/testzombie/zombietest.png" id="1_sc6mq"]
+[ext_resource type="Script" path="res://Utilites/components/Hurtbox.gd" id="3_np3i1"]
+[ext_resource type="PackedScene" uid="uid://b8owpguf65q6m" path="res://Entities/Enemys/zombies/basicz/melee/stab.tscn" id="4_spflh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hi5xp"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f0j0g"]
+radius = 5.38516
+
+[node name="melee" type="CharacterBody2D"]
+script = ExtResource("1_dptrc")
+min_health = 100
+max_health = 100
+min_speed = 5.0
+max_speed = 10.0
+min_damage = 50
+max_damage = 75
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_sc6mq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 524288
+visibility_layer = 262144
+shape = SubResource("CircleShape2D_hi5xp")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="context_map" type="Node2D" parent="."]
+
+[node name="0" type="RayCast2D" parent="context_map"]
+target_position = Vector2(0, -16)
+
+[node name="1" type="RayCast2D" parent="context_map"]
+target_position = Vector2(16, -16)
+
+[node name="2" type="RayCast2D" parent="context_map"]
+target_position = Vector2(16, 0)
+
+[node name="3" type="RayCast2D" parent="context_map"]
+target_position = Vector2(16, 16)
+
+[node name="4" type="RayCast2D" parent="context_map"]
+target_position = Vector2(0, 16)
+
+[node name="5" type="RayCast2D" parent="context_map"]
+target_position = Vector2(-16, 16)
+
+[node name="6" type="RayCast2D" parent="context_map"]
+target_position = Vector2(-16, 0)
+
+[node name="7" type="RayCast2D" parent="context_map"]
+target_position = Vector2(-16, -16)
+
+[node name="DamageRecivier" type="Area2D" parent="."]
+script = ExtResource("3_np3i1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageRecivier"]
+shape = SubResource("CircleShape2D_f0j0g")
+
+[node name="hit_wait" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="stab" parent="." instance=ExtResource("4_spflh")]
+
+[connection signal="stab_data" from="." to="stab" method="_on_melee_stab_data"]
+[connection signal="hit" from="DamageRecivier" to="." method="_on_damage_recivier_hit"]

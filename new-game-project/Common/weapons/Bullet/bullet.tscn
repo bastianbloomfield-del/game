@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://buq03nei2j8d8"]
+
+[ext_resource type="Script" path="res://Common/weapons/Bullet/bullet.gd" id="1_dmv10"]
+[ext_resource type="Texture2D" uid="uid://bvgju7ks1csjj" path="res://Assets/test.png" id="2_ddl7s"]
+[ext_resource type="Script" path="res://Utilites/components/hitbox.gd" id="3_838ra"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pxv4i"]
+size = Vector2(11.3114, 3.77317)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2vuc"]
+size = Vector2(7.76243, 5.62736)
+
+[node name="bullet" type="Node2D"]
+top_level = true
+rotation = 0.805449
+script = ExtResource("1_dmv10")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1.41393, 0.0283556)
+scale = Vector2(0.397646, 0.485819)
+texture = ExtResource("2_ddl7s")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_pxv4i")
+
+[node name="DamageEmitier" type="Area2D" parent="."]
+script = ExtResource("3_838ra")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageEmitier"]
+position = Vector2(2.46729, -0.014177)
+shape = SubResource("RectangleShape2D_o2vuc")
+
+[connection signal="data" from="." to="DamageEmitier" method="_on_bullet_data"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

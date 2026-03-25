@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="scope_mod_inv" load_steps=3 format=3 uid="uid://b6uaioja3rr7y"]
+
+[ext_resource type="Script" path="res://Utilites/components/modcomps/modscopes.gd" id="1_ngfck"]
+[ext_resource type="Script" path="res://Utilites/components/modinvs/scopeinv.gd" id="2_kjilf"]
+
+[resource]
+script = ExtResource("2_kjilf")
+scope = Array[ExtResource("1_ngfck")]([null])

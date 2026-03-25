@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcyst80weuhyx"]
+
+[ext_resource type="Script" path="res://Common/shop/shopitem.gd" id="1_nyodu"]
+[ext_resource type="Texture2D" uid="uid://8b3c3w4gemi6" path="res://Assets/card mod.png" id="2_a0f2r"]
+[ext_resource type="Resource" uid="uid://8fpwsydk0jdl" path="res://Assets/inventory_fire.tres" id="2_wses1"]
+[ext_resource type="Texture2D" uid="uid://6ybr6ctygp1r" path="res://Assets/coin.png" id="3_vjamb"]
+
+[node name="mods" type="Control" node_paths=PackedStringArray("card_frame")]
+custom_minimum_size = Vector2(96, 112)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nyodu")
+card_frame = NodePath("card")
+inventory_mod_scope = ExtResource("2_wses1")
+price = 10
+
+[node name="card" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.118
+anchor_bottom = 0.302
+offset_right = -39.936
+offset_bottom = -83.696
+texture = ExtResource("2_a0f2r")
+
+[node name="price" type="Label" parent="card"]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 84.0
+offset_right = 91.0
+offset_bottom = 107.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+
+[node name="coin" type="TextureRect" parent="card/price"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.094
+anchor_top = -6.819
+anchor_right = 2.165
+anchor_bottom = 1.497
+offset_left = 21.008
+offset_top = 160.837
+offset_right = -99.28
+offset_bottom = -14.431
+texture = ExtResource("3_vjamb")
+expand_mode = 1

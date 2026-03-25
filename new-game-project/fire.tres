@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="scope_comp" load_steps=3 format=3 uid="uid://dd5uyqonw7l4"]
+
+[ext_resource type="Script" path="res://Utilites/components/modcomps/modscopes.gd" id="1_pdocm"]
+[ext_resource type="Texture2D" uid="uid://bvgju7ks1csjj" path="res://Assets/test.png" id="2_hjpdb"]
+
+[resource]
+script = ExtResource("1_pdocm")
+name = "fire"
+texture = ExtResource("2_hjpdb")
+abilty = "fire"

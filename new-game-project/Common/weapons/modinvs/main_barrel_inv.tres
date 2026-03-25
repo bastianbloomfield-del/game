@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="barrel_mod_inv" load_steps=3 format=3 uid="uid://5tfvcrxko8st"]
+
+[ext_resource type="Script" path="res://Utilites/components/modcomps/modbarrel.gd" id="1_kxxm6"]
+[ext_resource type="Script" path="res://Utilites/components/modinvs/barrelinv.gd" id="2_08c5d"]
+
+[resource]
+script = ExtResource("2_08c5d")
+barrel = Array[ExtResource("1_kxxm6")]([null, null, null])

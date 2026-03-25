@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8npbx6ctir4d"]
+
+[ext_resource type="Texture2D" uid="uid://bvgju7ks1csjj" path="res://Assets/test.png" id="1_msag1"]
+[ext_resource type="Script" path="res://Entities/Enemys/zombies/basicz/ranged/enbullet.gd" id="1_qg435"]
+[ext_resource type="Script" path="res://Utilites/components/hitbox.gd" id="2_6aq7s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k7q7k"]
+size = Vector2(20, 10.6182)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o4wam"]
+size = Vector2(31.1821, 20)
+
+[node name="Enbullet" type="Node2D"]
+rotation = 0.804597
+script = ExtResource("1_qg435")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_msag1")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(8.48372, -0.162895)
+shape = SubResource("RectangleShape2D_k7q7k")
+
+[node name="DamageEmitier" type="Area2D" parent="."]
+script = ExtResource("2_6aq7s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageEmitier"]
+position = Vector2(5.59107, 0)
+shape = SubResource("RectangleShape2D_o4wam")
+
+[connection signal="data" from="." to="DamageEmitier" method="_on_enbullet_data"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=3 uid="uid://chdfch262e1yg"]
+
+[ext_resource type="Script" path="res://Common/shop/shop.gd" id="1_o86hs"]
+[ext_resource type="Texture2D" uid="uid://6h0igl6xtmda" path="res://Assets/shop.png" id="2_3hyyn"]
+[ext_resource type="Texture2D" uid="uid://teyn0n2iefeo" path="res://Assets/shop ui background.png" id="3_12gau"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wndap"]
+size = Vector2(58, 11)
+
+[node name="shop" type="Node2D"]
+script = ExtResource("1_o86hs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3hyyn")
+
+[node name="display" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -32.0
+offset_top = -2.0
+offset_right = 32.0
+offset_bottom = 16.0
+
+[node name="1" type="Marker2D" parent="display"]
+position = Vector2(10, 10)
+
+[node name="2" type="Marker2D" parent="display"]
+position = Vector2(21, 10)
+
+[node name="3" type="Marker2D" parent="display"]
+position = Vector2(32, 10)
+
+[node name="4" type="Marker2D" parent="display"]
+position = Vector2(43, 10)
+
+[node name="5" type="Marker2D" parent="display"]
+position = Vector2(54, 10)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 524288
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_wndap")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_12gau")
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(96, 112)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.042
+anchor_top = 0.222
+anchor_right = 0.951
+anchor_bottom = 0.395
+offset_left = -0.384007
+offset_top = 0.143967
+offset_right = 0.447998
+offset_bottom = 0.0399628
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
