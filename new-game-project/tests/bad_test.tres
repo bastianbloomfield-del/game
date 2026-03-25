@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="bad_card" load_steps=3 format=3 uid="uid://c6ra4ou6nyosv"]
+
+[ext_resource type="Script" path="res://Common/cards/cards/bad_card.gd" id="1_ogdt0"]
+[ext_resource type="Texture2D" uid="uid://bvgju7ks1csjj" path="res://Assets/test.png" id="2_xvuvi"]
+
+[resource]
+script = ExtResource("1_ogdt0")
+name = "enemy boost"
+texture = ExtResource("2_xvuvi")
+info = "makes enemys more stronger"
+effect = "+100 health and damage"

@@ -1,0 +1,226 @@
+[gd_scene load_steps=10 format=3 uid="uid://dkl2c0dx4b6vh"]
+
+[ext_resource type="Script" path="res://Common/weapons/Ranged/mod_ui.gd" id="1_k0m8w"]
+[ext_resource type="PackedScene" uid="uid://6t5o206o1my8" path="res://Common/weapons/Ranged/slot.tscn" id="2_o41w1"]
+[ext_resource type="Texture2D" uid="uid://4qufc8lqorlj" path="res://icon.svg" id="3_h4oqw"]
+[ext_resource type="Resource" uid="uid://dd5uyqonw7l4" path="res://fire.tres" id="4_m8rw8"]
+[ext_resource type="Script" path="res://Utilites/item/inventorymods/inventory_scope_mod.gd" id="4_vfcft"]
+[ext_resource type="Texture2D" uid="uid://ci5uwyf7c28hp" path="res://Assets/scope_display.png" id="5_qt1ay"]
+[ext_resource type="Texture2D" uid="uid://dg12igagiwjij" path="res://Assets/barrel_display.png" id="6_377x2"]
+[ext_resource type="Texture2D" uid="uid://b770pe6sqiri1" path="res://Assets/ammo_display.png" id="7_amo7d"]
+
+[sub_resource type="Resource" id="Resource_bxqbn"]
+script = ExtResource("4_vfcft")
+mod = ExtResource("4_m8rw8")
+title = "goda"
+icon = ExtResource("3_h4oqw")
+type = "scope"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k0m8w")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="player_inventory" type="GridContainer" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 4
+
+[node name="slot" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot2" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot3" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot4" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot5" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot6" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot7" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot8" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot9" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot10" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot11" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="slot12" parent="UI/player_inventory" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+
+[node name="hotbar" type="HBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(20, 20)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -60.0
+offset_right = 252.0
+grow_vertical = 0
+
+[node name="weapon" parent="UI/hotbar" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+item = SubResource("Resource_bxqbn")
+slot_type = "weapon"
+
+[node name="mod inv" type="VBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -99.0
+offset_right = 48.0
+offset_bottom = 99.0
+grow_vertical = 2
+alignment = 1
+
+[node name="scope" type="TextureButton" parent="UI/mod inv"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = ExtResource("5_qt1ay")
+stretch_mode = 0
+
+[node name="scope mod displays" type="Control" parent="UI/mod inv/scope"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -33.0
+offset_right = 320.0
+offset_bottom = 32.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="scope_slots" type="HBoxContainer" parent="UI/mod inv/scope/scope mod displays"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="scope1" parent="UI/mod inv/scope/scope mod displays/scope_slots" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+slot_type = "scope"
+
+[node name="barrel" type="TextureButton" parent="UI/mod inv"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = ExtResource("6_377x2")
+stretch_mode = 0
+
+[node name="barrel mod displays" type="Control" parent="UI/mod inv/barrel"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -33.0
+offset_right = 320.0
+offset_bottom = 32.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="barrel_slots" type="HBoxContainer" parent="UI/mod inv/barrel/barrel mod displays"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="barrel1" parent="UI/mod inv/barrel/barrel mod displays/barrel_slots" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+slot_type = "barrel"
+
+[node name="barrel2" parent="UI/mod inv/barrel/barrel mod displays/barrel_slots" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+slot_type = "barrel"
+
+[node name="barrel3" parent="UI/mod inv/barrel/barrel mod displays/barrel_slots" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+slot_type = "barrel"
+
+[node name="ammo" type="TextureButton" parent="UI/mod inv"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = ExtResource("7_amo7d")
+stretch_mode = 0
+
+[node name="ammo mod displays" type="Control" parent="UI/mod inv/ammo"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -33.0
+offset_right = 320.0
+offset_bottom = 32.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ammo_slots" type="HBoxContainer" parent="UI/mod inv/ammo/ammo mod displays"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ammo1" parent="UI/mod inv/ammo/ammo mod displays/ammo_slots" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+slot_type = "ammo"
+
+[node name="ammo2" parent="UI/mod inv/ammo/ammo mod displays/ammo_slots" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+slot_type = "ammo"
+
+[node name="ammo3" parent="UI/mod inv/ammo/ammo mod displays/ammo_slots" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+slot_type = "ammo"
+
+[node name="ammo4" parent="UI/mod inv/ammo/ammo mod displays/ammo_slots" instance=ExtResource("2_o41w1")]
+layout_mode = 2
+slot_type = "ammo"
+
+[connection signal="pressed" from="UI/mod inv/scope" to="." method="_on_scope_pressed"]
+[connection signal="pressed" from="UI/mod inv/barrel" to="." method="_on_barrel_pressed"]
+[connection signal="pressed" from="UI/mod inv/ammo" to="." method="_on_ammo_pressed"]

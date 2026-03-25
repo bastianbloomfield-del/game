@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2addr7hxfuqb"]
+
+[ext_resource type="Script" path="res://Common/weapons/Melee/Task/melee_task.gd" id="1_2ihiq"]
+
+[node name="melee task" type="Node2D"]
+script = ExtResource("1_2ihiq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_left = 154.0
+offset_top = 57.0
+offset_right = 356.0
+offset_bottom = 260.0

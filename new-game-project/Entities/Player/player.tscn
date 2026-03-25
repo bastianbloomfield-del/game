@@ -1,0 +1,211 @@
+[gd_scene load_steps=21 format=3 uid="uid://ckx7rja415ix3"]
+
+[ext_resource type="Script" path="res://Entities/Player/player.gd" id="1_e6if8"]
+[ext_resource type="Texture2D" uid="uid://bhyacwx45q158" path="res://Entities/Player/playerset.png" id="2_0jcr1"]
+[ext_resource type="Script" path="res://Utilites/components/Hurtbox.gd" id="3_qqmeq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgffs"]
+size = Vector2(21.5143, 20.3118)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efvks"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(0, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h7oel"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(8, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbae1"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(16, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ish6"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(24, 16, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsqeq"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlxro"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_woqvj"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plpna"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esehy"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wepbc"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(8, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qxb8"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(16, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggdqc"]
+atlas = ExtResource("2_0jcr1")
+region = Rect2(24, 8, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_helnm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efvks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h7oel")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbae1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ish6")
+}],
+"loop": true,
+"name": &"boy(damage)",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsqeq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlxro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_woqvj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plpna")
+}],
+"loop": true,
+"name": &"boy(idle)",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_esehy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wepbc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qxb8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ggdqc")
+}],
+"loop": true,
+"name": &"boy(walk)",
+"speed": 2.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aonp7"]
+radius = 2.37909
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ltcuw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t8wyf"]
+bg_color = Color(0.28868, 0.654131, 0.764194, 1)
+
+[node name="player" type="CharacterBody2D"]
+top_level = true
+scale = Vector2(0.929615, 0.984649)
+collision_layer = 524289
+script = ExtResource("1_e6if8")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 524288
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+light_mask = 262144
+visibility_layer = 524288
+position = Vector2(-4.29153e-06, 0)
+shape = SubResource("RectangleShape2D_wgffs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.0207625, -0.0219995)
+scale = Vector2(2.15143, 2.03118)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D"]
+position = Vector2(0.00965023, 0.0108309)
+scale = Vector2(1.25, 1.25)
+sprite_frames = SubResource("SpriteFrames_helnm")
+animation = &"boy(damage)"
+frame = 1
+frame_progress = 0.638561
+
+[node name="DamageRecivier" type="Area2D" parent="."]
+position = Vector2(16.1357, 1.01559)
+script = ExtResource("3_qqmeq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageRecivier"]
+position = Vector2(-16.1357, -1.01559)
+shape = SubResource("CircleShape2D_aonp7")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="ui"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="healthbar" type="ProgressBar" parent="ui/Control"]
+z_index = 1
+layout_mode = 0
+offset_left = 272.0
+offset_top = 568.0
+offset_right = 928.0
+offset_bottom = 640.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_ltcuw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_t8wyf")
+value = 100.0
+show_percentage = false
+
+[node name="ColorRect" type="ColorRect" parent="ui/Control/healthbar"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 664.0
+offset_bottom = 80.0
+color = Color(0.230315, 0.230315, 0.230315, 1)
+
+[node name="xp bar" type="ColorRect" parent="ui/Control"]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 552.0
+offset_right = 936.0
+offset_bottom = 560.0
+
+[node name="CheckBox" type="CheckBox" parent="ui/Control"]
+layout_mode = 0
+offset_left = 1075.0
+offset_top = 52.0
+offset_right = 1099.0
+offset_bottom = 76.0
+
+[node name="coins" type="Label" parent="ui/Control"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 46
+text = "100"
+
+[node name="hit_wait" type="Timer" parent="."]
+
+[connection signal="toggled" from="ui/Control/CheckBox" to="." method="_on_check_box_toggled"]

@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://dkb74vsy53xm5"]
+
+[ext_resource type="Texture2D" uid="uid://dronj8ubuuee0" path="res://Entities/Enemys/testzombie/zombietest.png" id="1_gf251"]
+[ext_resource type="Script" path="res://Entities/Enemys/testzombie/zombietest.gd" id="1_mqsni"]
+[ext_resource type="Script" path="res://Utilites/components/Hurtbox.gd" id="3_h132t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fjqdd"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0mhgj"]
+radius = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1bf85"]
+radius = 70.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4pnj3"]
+radius = 5.0
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_mqsni")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fjqdd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gf251")
+
+[node name="enter_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enter_area"]
+shape = SubResource("CircleShape2D_0mhgj")
+
+[node name="exit_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="exit_area"]
+shape = SubResource("CircleShape2D_1bf85")
+
+[node name="DamageRecivier" type="Area2D" parent="."]
+script = ExtResource("3_h132t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageRecivier"]
+shape = SubResource("CircleShape2D_4pnj3")
+
+[connection signal="body_entered" from="enter_area" to="." method="_on_enter_area_body_entered"]
+[connection signal="body_exited" from="exit_area" to="." method="_on_exit_area_body_exited"]

@@ -1,0 +1,111 @@
+[gd_scene load_steps=5 format=3 uid="uid://0xrl3kfr8nu3"]
+
+[ext_resource type="Script" path="res://Common/cards/cardoption.gd" id="1_4mdef"]
+[ext_resource type="Texture2D" uid="uid://bvgju7ks1csjj" path="res://Assets/test.png" id="2_1g7tx"]
+[ext_resource type="Resource" uid="uid://wkyrfiyj2oii" path="res://tests/good_teat.tres" id="2_22dns"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aphgn"]
+bg_color = Color(0.728822, 0.728822, 0.728822, 1)
+
+[node name="cardoption" type="Control"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4mdef")
+GOOD_card = ExtResource("2_22dns")
+
+[node name="option 1" type="Panel" parent="."]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+offset_right = 200.0
+offset_bottom = 200.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_aphgn")
+
+[node name="good" type="Panel" parent="option 1"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+
+[node name="name" type="Label" parent="option 1/good"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "name
+"
+horizontal_alignment = 1
+
+[node name="info" type="Label" parent="option 1/good"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "info"
+
+[node name="texture" type="TextureRect" parent="option 1/good"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_1g7tx")
+
+[node name="bad" type="Panel" parent="option 1"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="name" type="Label" parent="option 1/bad"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "name
+"
+horizontal_alignment = 1
+
+[node name="info" type="Label" parent="option 1/bad"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "info"
+
+[node name="texture" type="TextureRect" parent="option 1/bad"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_1g7tx")

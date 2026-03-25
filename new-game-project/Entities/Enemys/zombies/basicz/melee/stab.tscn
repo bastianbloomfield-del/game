@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8owpguf65q6m"]
+
+[ext_resource type="Script" path="res://Entities/Enemys/zombies/basicz/melee/stab.gd" id="1_3xp8b"]
+[ext_resource type="Texture2D" uid="uid://bvgju7ks1csjj" path="res://Assets/test.png" id="1_ivnk5"]
+[ext_resource type="Script" path="res://Utilites/components/hitbox.gd" id="3_2nyaf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r4l2j"]
+radius = 4.0
+height = 18.0
+
+[sub_resource type="Animation" id="Animation_k6dyl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 11)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5689]
+}
+
+[sub_resource type="Animation" id="Animation_2s25c"]
+resource_name = "attack"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667, 0.733333, 1, 1.23333, 1.5, 1.73333, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 11), Vector2(11, 11), Vector2(11, -9.53674e-07), Vector2(11, -11), Vector2(0, -11), Vector2(-11, -11), Vector2(-11, 0), Vector2(-11, 11), Vector2(-9.53674e-07, 11)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667, 0.733333, 1, 1.23333, 1.5, 1.73333, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.5689, 0.777837, -0.000984371, -0.78856, -1.57382, -2.35971, -3.14259, -3.9296, -4.71644]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ukiar"]
+_data = {
+"RESET": SubResource("Animation_k6dyl"),
+"attack": SubResource("Animation_2s25c")
+}
+
+[node name="stab" type="Node2D"]
+script = ExtResource("1_3xp8b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 11)
+rotation = 1.5689
+scale = Vector2(0.460158, 0.460158)
+texture = ExtResource("1_ivnk5")
+
+[node name="DamageEmitier" type="Area2D" parent="Sprite2D"]
+rotation = -1.5689
+script = ExtResource("3_2nyaf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/DamageEmitier"]
+position = Vector2(-0.00894833, 7.07106)
+rotation = -0.00459021
+shape = SubResource("CapsuleShape2D_r4l2j")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_ukiar")
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="data" from="." to="Sprite2D/DamageEmitier" method="_on_stab_data"]

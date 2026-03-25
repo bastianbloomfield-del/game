@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://5s87dlqhmbtu"]
+
+[ext_resource type="Script" path="res://Utilites/item/inventorymods/tooltip/tool_tip.gd" id="1_vdojd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_844ve"]
+bg_color = Color(0.321728, 0.321728, 0.321728, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.0807833, 0.0807834, 0.0807833, 1)
+
+[node name="PanelContainer" type="PanelContainer"]
+z_index = 10
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.0
+offset_top = -128.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_844ve")
+script = ExtResource("1_vdojd")
+
+[node name="main" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="type" type="Label" parent="main"]
+custom_minimum_size = Vector2(10, 50)
+layout_mode = 2
+text = "type"
+horizontal_alignment = 1
+
+[node name="stats" type="VBoxContainer" parent="main"]
+layout_mode = 2

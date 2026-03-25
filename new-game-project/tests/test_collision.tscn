@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyxg57megstu4"]
+
+[ext_resource type="Texture2D" uid="uid://bvgju7ks1csjj" path="res://Assets/test.png" id="1_85qvi"]
+[ext_resource type="Script" path="res://Utilites/components/hitbox.gd" id="2_p4o2x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8q125"]
+size = Vector2(17, 8)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_85qvi")
+
+[node name="DamageEmitier" type="Area2D" parent="."]
+script = ExtResource("2_p4o2x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageEmitier"]
+position = Vector2(8.5, 0)
+shape = SubResource("RectangleShape2D_8q125")

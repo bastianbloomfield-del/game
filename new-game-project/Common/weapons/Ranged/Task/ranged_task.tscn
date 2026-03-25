@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://b773q74bvmljg"]
+
+[ext_resource type="Script" path="res://Common/weapons/Ranged/Task/ranged_task.gd" id="1_4xykx"]
+[ext_resource type="Script" path="res://Utilites/components/modcomps/modscopes.gd" id="2_i1bni"]
+[ext_resource type="Script" path="res://Utilites/components/modinvs/scopeinv.gd" id="3_qe336"]
+
+[sub_resource type="Resource" id="Resource_kadlu"]
+script = ExtResource("3_qe336")
+scope = Array[ExtResource("2_i1bni")]([null])
+
+[node name="ranged task" type="Node2D"]
+script = ExtResource("1_4xykx")
+scope_inventory = SubResource("Resource_kadlu")
+ammo = 10
+shoot_time = 1.0
+
+[node name="reload_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="shoot_timer" type="Timer" parent="."]
+one_shot = true

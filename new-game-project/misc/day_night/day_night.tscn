@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://np3fkcu61l2b"]
+
+[ext_resource type="Script" path="res://misc/day_night/day_night.gd" id="1_gynoi"]
+
+[sub_resource type="Gradient" id="Gradient_yw0oi"]
+offsets = PackedFloat32Array(0.0517928, 0.119522, 0.338645, 0.50996, 0.6, 0.952191, 1)
+colors = PackedColorArray(0.672123, 0.837306, 0.966558, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.596446, 0.493001, 0.381317, 1, 0.215902, 0.215902, 0.215902, 1, 0.215686, 0.215686, 0.215686, 1, 0.672123, 0.837306, 0.966558, 1)
+metadata/_snap_count = 5
+metadata/_snap_enabled = true
+
+[node name="day_night" type="Node2D"]
+script = ExtResource("1_gynoi")
+gradient_as = SubResource("Gradient_yw0oi")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_left = 964.0
+offset_top = 490.0
+offset_right = 1158.0
+offset_bottom = 647.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

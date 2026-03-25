@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://dg6kb5rhrcaue"]
+
+[ext_resource type="Script" path="res://Entities/Enemys/zombies/basicz/ranged/enemy_2.gd" id="1_s5w8v"]
+[ext_resource type="Texture2D" uid="uid://dronj8ubuuee0" path="res://Entities/Enemys/testzombie/zombietest.png" id="2_tbwlf"]
+[ext_resource type="Script" path="res://Utilites/components/Hurtbox.gd" id="3_wpvix"]
+[ext_resource type="PackedScene" uid="uid://c2h038jrk486b" path="res://Entities/Enemys/zombies/basicz/ranged/shoot.tscn" id="4_wi2cd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hi5xp"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f0j0g"]
+radius = 5.38516
+
+[node name="ranged" type="CharacterBody2D"]
+script = ExtResource("1_s5w8v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tbwlf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 524288
+visibility_layer = 262144
+shape = SubResource("CircleShape2D_hi5xp")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="context_map" type="Node2D" parent="."]
+
+[node name="0" type="RayCast2D" parent="context_map"]
+target_position = Vector2(0, -16)
+
+[node name="1" type="RayCast2D" parent="context_map"]
+target_position = Vector2(16, -16)
+
+[node name="2" type="RayCast2D" parent="context_map"]
+target_position = Vector2(16, 0)
+
+[node name="3" type="RayCast2D" parent="context_map"]
+target_position = Vector2(16, 16)
+
+[node name="4" type="RayCast2D" parent="context_map"]
+target_position = Vector2(0, 16)
+
+[node name="5" type="RayCast2D" parent="context_map"]
+target_position = Vector2(-16, 16)
+
+[node name="6" type="RayCast2D" parent="context_map"]
+target_position = Vector2(-16, 0)
+
+[node name="7" type="RayCast2D" parent="context_map"]
+target_position = Vector2(-16, -16)
+
+[node name="DamageRecivier" type="Area2D" parent="."]
+script = ExtResource("3_wpvix")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageRecivier"]
+shape = SubResource("CircleShape2D_f0j0g")
+
+[node name="hit_wait" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="shoot" parent="." instance=ExtResource("4_wi2cd")]
+
+[node name="shoot_timer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="shootpos" type="Marker2D" parent="."]
+
+[connection signal="shoot_data" from="." to="shoot" method="_on_ranged_shoot_data"]
+[connection signal="hit" from="DamageRecivier" to="." method="_on_damage_recivier_hit"]
