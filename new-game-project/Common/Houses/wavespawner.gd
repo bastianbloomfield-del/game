@@ -1,12 +1,9 @@
 extends Node2D
 
-
-
 @export var ENEMY_1: PackedScene
 
 @onready var shop: Node2D = $shop
-#@onready var cards: Node2D = $cards
-
+@onready var cards: Node2D = $cards
 
 var wave_on = false
 # 1
@@ -86,15 +83,14 @@ func spawn_type(type, mob_spawn_rounds, mob_timer): # change this
 			
 	
 
-
 func _process(delta: float) -> void:
 	if wave_on == false:
 		#shop
 		shop.visible = true
 		Global.roll_shop = true
 		#card
-		#cards.visible = false
-		#Global.roll_cards = true
+		cards.visible = false
+		Global.roll_cards = true
 		
 		return
 	
