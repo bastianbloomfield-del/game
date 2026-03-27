@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://bu5vuy730p4hu"]
-
-[node name="testing" type="Node2D"]
-
-[node name="test" type="Node2D" parent="."]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
