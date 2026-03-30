@@ -60,5 +60,7 @@ func _input(event):
 		if event.pressed and hovering:
 			take_card()
 
-func take_card():
-	print("Card taken:", GOOD_card, BAD_card)
+func take_card():# have another global script for all the variables and if they true do the fuction 
+	#of them but need to see if there is a way to do theis with little lag could have a loop once if a card is selected
+	
+	print("Card taken:", GOOD_card.effect, BAD_card.effect)
