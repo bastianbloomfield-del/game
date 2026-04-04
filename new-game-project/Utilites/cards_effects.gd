@@ -1,8 +1,18 @@
 extends Node
 
-#good
-var player_speed_20: bool = false
+var changed: bool = false
+
+# change to player aditional effects like health damage speed ect as the data
+
+#player
+var player_speed: String
+var player_health: int
+
+#weapon
+var weapon_damage: int
 
 
-#bad
-var enemy_stronger: bool = false
+#enemy
+var enemy_health
+var enemy_speed
+var enemy_damage

@@ -24,7 +24,7 @@ func set_cards(good, bad):
 	GOOD_card = good
 	BAD_card = bad
 	load_cards()
-
+#aaaaaaa
 func load_cards():
 	if GOOD_card == null:
 		name_good.text = ""
@@ -63,6 +63,11 @@ func _input(event):
 func take_card():# have another global script for all the variables and if they true do the fuction 
 	#of them but need to see if there is a way to do theis with little lag could have a loop once if a card is selected
 	
-	print("Card taken: ", GOOD_card.effect, BAD_card.effect)
+	CardsEffects.changed = true # when do we set it to false? were 
 	
-	if 
+	print("Card taken: ", GOOD_card.effect, BAD_card.effect)
+	var good_card_effect = GOOD_card.effect
+	var bad_card_effect = BAD_card.effect
+	
+	if good_card_effect == "30 faster player":
+		print("aaaaaaaaaaaaaaaa")

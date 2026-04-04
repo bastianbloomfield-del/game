@@ -26,16 +26,21 @@ class_name player
 var hit_damage
 var hit_effect
 
-var current_effect:String
+var current_effect: String
 
 var hold = 0
 var time = 1
 
-func _ready() -> void:
-	ui.visible = true
 
 
 func _physics_process(delta: float) -> void:
+	if CardsEffects.changed == true:
+		speed =+ CardsEffects.player_speed
+		
+		healthbar.max_value =+ CardsEffects.player_health
+		health =+ CardsEffects.player_health
+	
+	
 	
 	if Input.is_action_pressed("openclose inventory") and hold == 0:
 		Global.inventory_ui = true
