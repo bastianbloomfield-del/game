@@ -3,7 +3,7 @@ extends Node2D
 @export var ENEMY_1: PackedScene
 
 @onready var shop: Node2D = $shop
-@onready var cards: Node2D = $cards
+#@onready var cards: Node2D = $cards
 
 var wave_on = false
 # 1
@@ -27,6 +27,7 @@ func _ready() -> void:
 	wave_card = 5
 	Global.current_wave = current_wave
 	Global.roll_shop = false
+	Global.roll_cards = false
 	starting_nodes = get_child_count()
 	current_nodes = get_child_count()
 	
@@ -47,7 +48,6 @@ func position_to_next_wave():
 		current_wave += 1
 		Global.current_wave = current_wave
 		prepare_spawn("enemy_1", 4.0, 4.0)
-
 
 
 #                  zombies / amount a wave / all pos of spawns
@@ -89,8 +89,10 @@ func _process(delta: float) -> void:
 		shop.visible = true
 		Global.roll_shop = true
 		#card
-		cards.visible = false
-		Global.roll_cards = true
+		
+		#if current_wave == 5:
+		#	cards.visible = true
+		#	Global.roll_cards = true
 		
 		return
 	

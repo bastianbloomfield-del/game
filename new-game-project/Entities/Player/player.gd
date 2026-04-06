@@ -30,15 +30,22 @@ var current_effect: String
 
 var hold = 0
 var time = 1
+var once = 0
 
 
 
 func _physics_process(delta: float) -> void:
 	if CardsEffects.changed == true:
-		speed =+ CardsEffects.player_speed
 		
-		healthbar.max_value =+ CardsEffects.player_health
-		health =+ CardsEffects.player_health
+		if once == 0:
+			print("11111111")
+			speed =+ CardsEffects.player_speed
+			
+			healthbar.max_value =+ CardsEffects.player_health
+			health =+ CardsEffects.player_health
+		
+		once == 1
+		
 	
 	
 	

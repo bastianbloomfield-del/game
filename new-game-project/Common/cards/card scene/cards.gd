@@ -3,9 +3,9 @@ extends Node2D
 @onready var option_1: Control = $CanvasLayer/Control/HBoxContainer/option1
 @onready var option_2: Control = $CanvasLayer/Control/HBoxContainer/option2
 
-var good_cards = []
+var good_cards = ["res://tests/good_teat.tres"]
 
-var bad_cards = []
+var bad_cards = ["res://tests/bad_test.tres"]
 
 func roll_cards():
 	# OPTION 1
@@ -22,3 +22,5 @@ func _process(delta):
 	if Global.roll_cards:
 		roll_cards()
 		Global.roll_cards = false
+	
+	

@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://mrv1n5b8fp0l"]
+[gd_scene load_steps=7 format=4 uid="uid://mrv1n5b8fp0l"]
 
 [ext_resource type="Script" path="res://Common/Houses/wavespawner.gd" id="1_ib5qb"]
 [ext_resource type="Texture2D" uid="uid://dus7gn7otnvw" path="res://Common/Houses/houseset1.png" id="2_17jqe"]
 [ext_resource type="PackedScene" uid="uid://ck7edfvgwgm2d" path="res://Entities/Enemys/zombies/basicz/melee/enemy1.tscn" id="2_b4jug"]
 [ext_resource type="PackedScene" uid="uid://chdfch262e1yg" path="res://Common/shop/shop.tscn" id="4_us2bc"]
-[ext_resource type="PackedScene" uid="uid://cwe07jmowq77x" path="res://Common/cards/card scene/cards.tscn" id="5_wdoje"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qdmq8"]
 texture = ExtResource("2_17jqe")
@@ -95,8 +94,6 @@ position = Vector2(-193.924, 158.47)
 
 [node name="shop" parent="." instance=ExtResource("4_us2bc")]
 position = Vector2(-448.008, 63.9922)
-
-[node name="cards" parent="." instance=ExtResource("5_wdoje")]
 
 [connection signal="timeout" from="spawner time" to="." method="_on_spawner_time_timeout"]
 [connection signal="timeout" from="dayendtimeout" to="." method="_on_dayendtimeout_timeout"]
