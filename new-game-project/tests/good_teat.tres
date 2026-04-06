@@ -7,5 +7,5 @@
 script = ExtResource("1_tcluf")
 name = "player speed boost"
 texture = ExtResource("2_sgycy")
-info = "makes player 30% faster"
-effect = "30 faster player"
+info = "makes player +30 faster"
+effect = "+30 faster player"

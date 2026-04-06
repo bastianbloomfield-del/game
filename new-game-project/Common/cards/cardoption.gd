@@ -15,7 +15,9 @@ extends Control
 @export var GOOD_card: good_card
 @export var BAD_card: bad_card
 
-var hovering := false
+var hovering: bool = false
+
+var timer: int = 0.01
 
 func _ready():
 	load_cards()
@@ -63,6 +65,34 @@ func _input(event):
 func take_card():# have another global script for all the variables and if they true do the fuction 
 	#of them but need to see if there is a way to do theis with little lag could have a loop once if a card is selected
 	
-	print("Card taken: ", GOOD_card.effect, BAD_card.effect)
+	#bellow all
 	
-	if 
+	
+	print("Card taken: ", GOOD_card.effect, BAD_card.effect)
+	var good_card_effect = GOOD_card.effect
+	var bad_card_effect = BAD_card.effect
+	
+	
+	if good_card_effect == "30 faster player":
+		CardsEffects.player_speed = 30
+		
+	
+	if bad_card_effect == "+100 health and damage":
+		CardsEffects.enemy_damage = 100
+		CardsEffects.enemy_health = 100
+	
+	
+	
+	CardsEffects.changed = true # when do we set it to false? were 
+	await get_tree().create_timer(timer).timeout
+	CardsEffects.changed = false
+	
+	CardsEffects.enemy_damage = 0
+	CardsEffects.enemy_health = 0
+	CardsEffects.enemy_speed = 0
+	CardsEffects.player_health = 0
+	CardsEffects.player_speed = 0
+	CardsEffects.weapon_damage = 0
+	
+	
+	
