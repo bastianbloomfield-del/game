@@ -7,11 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://craykmotdx4qg" path="res://misc/gun.tscn" id="6_hh6i4"]
 [ext_resource type="PackedScene" uid="uid://mrv1n5b8fp0l" path="res://Common/Houses/house.tscn" id="8_ctlsv"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_i8sp4"]
-vertices = PackedVector2Array(368.977, 288, -244.961, 288, -243.039, -189, 368.023, -189)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-253, -199, 378, -199, 379, 297.999, -255, 297.999)])
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5miua"]
 texture_region_size = Vector2i(8, 8)
 0:0/0 = 0
@@ -52,7 +47,6 @@ sources/2 = SubResource("TileSetAtlasSource_7qj55")
 sources/0 = SubResource("TileSetAtlasSource_5miua")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_gnhmk"]
-metadata/_preview_in_3d_space_ = true
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ff2d7"]
 
@@ -67,7 +61,24 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_y30u0")
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_i8sp4"]
+vertices = PackedVector2Array(368.977, 288, -244.961, 288, -243.039, -189, 368.023, -189)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-253, -199, 378, -199, 379, 297.999, -255, 297.999)])
+
 [node name="Main" type="Node2D"]
+
+[node name="map" type="TileMapLayer" parent="."]
+visibility_layer = 2
+z_index = -2
+tile_set = SubResource("TileSet_y3e85")
+script = ExtResource("2_lwhfw")
+temperature = SubResource("FastNoiseLite_gnhmk")
+altitude = SubResource("FastNoiseLite_ff2d7")
+
+[node name="enviroment" type="TileMapLayer" parent="map"]
+light_mask = 2
+tile_set = SubResource("TileSet_8f5vd")
 
 [node name="day_night" parent="." instance=ExtResource("6_1blmt")]
 
@@ -79,7 +90,7 @@ position = Vector2(-427.903, 219.56)
 scale = Vector2(0.348705, 0.3859)
 
 [node name="Camera2D" type="Camera2D" parent="player"]
-zoom = Vector2(3.5, 3.5)
+zoom = Vector2(7.1, 7.1)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="player"]
 position = Vector2(-103.517, -211.35)
@@ -87,17 +98,3 @@ scale = Vector2(2.86775, 2.59135)
 navigation_polygon = SubResource("NavigationPolygon_i8sp4")
 
 [node name="gun" parent="player" instance=ExtResource("6_hh6i4")]
-
-[node name="world" type="Node2D" parent="."]
-
-[node name="map" type="TileMapLayer" parent="world"]
-visibility_layer = 2
-z_index = -2
-tile_set = SubResource("TileSet_y3e85")
-script = ExtResource("2_lwhfw")
-temperature = SubResource("FastNoiseLite_gnhmk")
-altitude = SubResource("FastNoiseLite_ff2d7")
-
-[node name="enviroment" type="TileMapLayer" parent="world/map"]
-light_mask = 2
-tile_set = SubResource("TileSet_8f5vd")
