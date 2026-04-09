@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://4e06yvh1jfd3"]
+[gd_scene load_steps=16 format=3 uid="uid://4e06yvh1jfd3"]
 
 [ext_resource type="Texture2D" uid="uid://bd1duhwsg4e7b" path="res://stages/Tilesets/biomemapnew.png" id="1_did1g"]
 [ext_resource type="Script" path="res://stages/map.gd" id="2_lwhfw"]
@@ -46,6 +46,10 @@ tile_size = Vector2i(8, 8)
 sources/2 = SubResource("TileSetAtlasSource_7qj55")
 sources/0 = SubResource("TileSetAtlasSource_5miua")
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_f0rq3"]
+noise_type = 2
+frequency = 0.0001
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_gnhmk"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ff2d7"]
@@ -73,8 +77,10 @@ visibility_layer = 2
 z_index = -2
 tile_set = SubResource("TileSet_y3e85")
 script = ExtResource("2_lwhfw")
+contenentilness = SubResource("FastNoiseLite_f0rq3")
 temperature = SubResource("FastNoiseLite_gnhmk")
 altitude = SubResource("FastNoiseLite_ff2d7")
+biomes = [null]
 
 [node name="enviroment" type="TileMapLayer" parent="map"]
 light_mask = 2
@@ -86,11 +92,11 @@ tile_set = SubResource("TileSet_8f5vd")
 position = Vector2(0.5, 2.02806)
 
 [node name="player" parent="." instance=ExtResource("3_ofavo")]
-position = Vector2(-427.903, 219.56)
+position = Vector2(64, 64)
 scale = Vector2(0.348705, 0.3859)
 
 [node name="Camera2D" type="Camera2D" parent="player"]
-zoom = Vector2(7.1, 7.1)
+zoom = Vector2(0.5, 0.5)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="player"]
 position = Vector2(-103.517, -211.35)
