@@ -26,11 +26,11 @@ var source_id = 2
 
 var plain = Vector2i(2,1)
 
-var sand = Vector2i(2,0)
-var forest = Vector2i(0,0)
-var savanna = Vector2i(3,0)
-var snow = Vector2i(1,1)
-var mountains = Vector2i(0,1)
+var sand = Vector2i(0,3)
+var forest = Vector2i(1,1)
+var savanna = Vector2i(0,2)
+var snow = Vector2i(0,0)
+var mountains = Vector2i(2,0)
 
 var water = Vector2i(3,0 )
 
@@ -43,6 +43,8 @@ var snowy_tile: Vector2i
 
 func _ready() -> void: # in ready have a get biomes func to get all the
 	# biome data in to vars like snow tile and snow noise
+	
+	
 	debug_scan()
 	
 	temperature.seed = randi()
@@ -115,25 +117,24 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 			
 			#tree = min(tree, 12)
 			
-			if cont < -11.5:
+			if cont < -11:
 				map.set_cell(pos, source_id, water)
+			
+			
+			elif alt < 6:
+				map.set_cell(pos, source_id, water)
+				
+			elif temp < 1:
+				map.set_cell(pos, source_id, mountains)
+			elif temp < 2:
+				map.set_cell(pos, source_id, forest)
+			elif temp < 8:
+				map.set_cell(pos, source_id, plain)
+			elif temp < 9:
+				map.set_cell(pos, source_id, savanna)
+			
 			else:
 				map.set_cell(pos, source_id, plain)
-			
-			#elif alt < 6:
-			#	map.set_cell(pos, source_id, sand)
-			#elif temp < 1:
-			#	map.set_cell(pos, source_id, mountains)
-			#elif temp < 2:
-			#	map.set_cell(pos, source_id, snow)
-			#elif temp < 5:
-			#	map.set_cell(pos, source_id, plain)
-			#elif temp < 8:
-			#	map.set_cell(pos, source_id, forest)
-			#elif temp < 9:
-			#	map.set_cell(pos, source_id, savanna)
-			#else:
-			#	map.set_cell(pos, source_id, sand)
 
 func _delete_chunk(chunk_pos: Vector2i) -> void:
 	for x in range(chunk_size):
@@ -151,7 +152,7 @@ func debug_scan():
 
 	for x in range(-600, 600):
 		for y in range(-600, 600):
-			var v = (contenentilness.get_noise_2d(x, y) * 20.0)
+			var v = (temperature.get_noise_2d(x, y) * 20.0)
 			min_val = min(min_val, v)
 			max_val = max(max_val, v)
 

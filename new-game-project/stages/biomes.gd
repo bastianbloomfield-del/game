@@ -1,10 +1,11 @@
 extends Resource
-class_name biome
-# in here have all data of the biomes like tiles ranges ect
+class_name Biome
 
-@export var name: String
+@export var name: String = "Biome"
+@export var tile: Vector2i = Vector2i.ZERO
 
-@export var tile: Vector2i
+@export var temp_range: Vector2 = Vector2(0, 1)
+@export var moist_range: Vector2 = Vector2(0, 1)
+@export var altitude_range: Vector2 = Vector2(0, 1)
 
-var temp_range
-var moist_range
+@export var noise: FastNoiseLite
