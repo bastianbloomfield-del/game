@@ -4,11 +4,12 @@ extends TileMapLayer
 
 @export var temperature = FastNoiseLite.new() # biome
 @export var altitude = FastNoiseLite.new() # biome water
+@export var moisture = FastNoiseLite.new()
 
 var trees = FastNoiseLite.new()
 
 var chunk_size = 17
-var render_distance: int = 3
+var render_distance: int = 5
  
 var current_chunk = Vector2i()
 var previous_chunk = Vector2i()
@@ -49,6 +50,9 @@ func _ready() -> void: # in ready have a get biomes func to get all the
 	
 	temperature.seed = randi()
 	altitude.seed = randi()
+	moisture.seed = randi()
+	contenentilness.seed = randi()
+	
 	altitude.frequency = 0.001
 	trees.seed = randi()
 	
@@ -110,28 +114,26 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 			var cont = round(abs(contenentilness.get_noise_2d(_x, _y) * 20.0)) # -10 - -12
 			var temp = roundi(abs(temperature.get_noise_2d(_x, _y) * 20.0)) # -17 - 16
 			var alt = roundi(abs(altitude.get_noise_2d(_x, _y) * 70.0)) # -60 - 57
+			var moist = round(abs(moisture.get_noise_2d(_x, _y) * 20.0)) # -17 - 16
 			#var tree = roundi(abs(trees.get_noise_2d(_x, _y) * 70.0))
 			
 			temp = min(temp, 12)
 			alt = min(alt, 12)
 			
-			#tree = min(tree, 12)
-			
-			if cont < -11:
+			if cont < -10:
 				map.set_cell(pos, source_id, water)
-			
 			
 			elif alt < 6:
 				map.set_cell(pos, source_id, water)
-				
-			elif temp < 1:
+			
+			elif alt < 7:
+				map.set_cell(pos, source_id, sand)
+			
+			elif between(alt, 10, 20) and between(temp, 3, 7) and between(moist, -5, 2):
 				map.set_cell(pos, source_id, mountains)
-			elif temp < 2:
+			
+			elif between(alt, 9, 30) and between(moist, -3, 4) and between(temp, 5, 10):
 				map.set_cell(pos, source_id, forest)
-			elif temp < 8:
-				map.set_cell(pos, source_id, plain)
-			elif temp < 9:
-				map.set_cell(pos, source_id, savanna)
 			
 			else:
 				map.set_cell(pos, source_id, plain)
@@ -152,7 +154,7 @@ func debug_scan():
 
 	for x in range(-600, 600):
 		for y in range(-600, 600):
-			var v = (temperature.get_noise_2d(x, y) * 20.0)
+			var v = (moisture.get_noise_2d(x, y) * 20.0)
 			min_val = min(min_val, v)
 			max_val = max(max_val, v)
 
