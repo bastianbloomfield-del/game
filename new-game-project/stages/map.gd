@@ -53,7 +53,12 @@ func _ready() -> void: # in ready have a get biomes func to get all the
 	moisture.seed = randi()
 	contenentilness.seed = randi()
 	
+	contenentilness.frequency = 0.0034
+	temperature.frequency = 0.001
+	moisture.frequency = 0.01
+	
 	altitude.frequency = 0.001
+	
 	trees.seed = randi()
 	
 	_update_player_chunk()
@@ -132,8 +137,14 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 			elif between(alt, 10, 20) and between(temp, 3, 7) and between(moist, -5, 2):
 				map.set_cell(pos, source_id, mountains)
 			
-			elif between(alt, 9, 30) and between(moist, -3, 4) and between(temp, 5, 10):
+			elif between(alt, 9, 30) and between(temp, 5, 14) and between(moist, -3, 4):
 				map.set_cell(pos, source_id, forest)
+			
+			elif between(alt, 9, 25) and between(temp, -7, 5) and between(moist, -6, 3):
+				map.set_cell(pos, source_id, snow)
+			
+			elif between(alt, 9, 30) and between(temp, -17, 16) and between(moist, 10, 30):
+				map.set_cell(pos, source_id, sand)
 			
 			else:
 				map.set_cell(pos, source_id, plain)
