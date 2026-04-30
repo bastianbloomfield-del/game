@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://4e06yvh1jfd3"]
+[gd_scene load_steps=19 format=3 uid="uid://4e06yvh1jfd3"]
 
 [ext_resource type="Texture2D" uid="uid://bd1duhwsg4e7b" path="res://stages/Tilesets/biomemapnew.png" id="1_did1g"]
 [ext_resource type="Script" path="res://stages/map.gd" id="2_lwhfw"]
+[ext_resource type="Texture2D" uid="uid://djf8dpp0sjtji" path="res://Assets/biome map.png" id="2_rdhlb"]
 [ext_resource type="PackedScene" uid="uid://ckx7rja415ix3" path="res://Entities/Player/player.tscn" id="3_ofavo"]
 [ext_resource type="PackedScene" uid="uid://np3fkcu61l2b" path="res://misc/day_night/day_night.tscn" id="6_1blmt"]
 [ext_resource type="PackedScene" uid="uid://craykmotdx4qg" path="res://misc/gun.tscn" id="6_hh6i4"]
@@ -41,20 +42,50 @@ texture_region_size = Vector2i(8, 8)
 2:3/0 = 0
 3:3/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2fm73"]
+texture = ExtResource("2_rdhlb")
+texture_region_size = Vector2i(8, 8)
+1:0/animation_columns = 4
+1:0/animation_frame_0/duration = 1.0
+1:0/animation_frame_1/duration = 1.0
+1:0/animation_frame_2/duration = 1.0
+1:0/animation_frame_3/duration = 1.0
+1:0/0 = 0
+0:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+0:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+0:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_y3e85"]
 tile_size = Vector2i(8, 8)
 sources/2 = SubResource("TileSetAtlasSource_7qj55")
 sources/0 = SubResource("TileSetAtlasSource_5miua")
+sources/3 = SubResource("TileSetAtlasSource_2fm73")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_eswj2"]
 frequency = 0.0034
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_gnhmk"]
+noise_type = 2
+frequency = 0.0043
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ff2d7"]
 frequency = 0.001
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_a8h1x"]
+noise_type = 2
+frequency = 0.0043
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y30u0"]
 texture_region_size = Vector2i(8, 8)

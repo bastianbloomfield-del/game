@@ -22,18 +22,39 @@ var active_chunks = {}
 
 @export var biomes = []
 
+#biomes
+#
+#
+# marsh plains forest hills
+#
+#
+var source_id = 3
 
-var source_id = 2
+#biomes
+var water = Vector2i(1,0)
 
-var plain = Vector2i(2,1)
+var beach = Vector2i(0,1)
+var desert = Vector2i(2,1)
+var savanna = Vector2i(3,1)
+var mesa = Vector2i(4,1)
 
-var sand = Vector2i(0,3)
-var forest = Vector2i(1,1)
-var savanna = Vector2i(0,2)
-var snow = Vector2i(0,0)
-var mountains = Vector2i(2,0)
+var marshs = Vector2i(0,2)
+var plains = Vector2i(2,2)
+var forests = Vector2i(3,2)
+var hills = Vector2i(4,2)
 
-var water = Vector2i(3,0 )
+var ice_sheets = Vector2i(0,3)
+var snow = Vector2i(2,3)
+var tundra = Vector2i(3,3)
+var ice_spikes = Vector2i(4,3)
+
+var mountains = Vector2i(2,4)
+
+#extra
+var grass = Vector2i(0,4)
+var flowers = Vector2i(1,4)
+
+
 
 var plains_tile: Vector2i 
 var sands_tile: Vector2i
@@ -54,8 +75,8 @@ func _ready() -> void: # in ready have a get biomes func to get all the
 	contenentilness.seed = randi()
 	
 	contenentilness.frequency = 0.0034
-	temperature.frequency = 0.001
-	moisture.frequency = 0.01
+	temperature.frequency = 0.0043
+	moisture.frequency = 0.0043
 	
 	altitude.frequency = 0.001
 	
@@ -74,8 +95,32 @@ func _process(delta: float) -> void:
 	
 	previous_chunk = current_chunk
 
-func get_biomes():
-	pass
+func get_biome(temp: int, moist: int, alt: int) -> Vector2i:
+	
+	if alt < 6: #oceqn
+		return water
+	
+	if alt < 8: # beach
+		return beach
+	
+	if alt > 41: #mountains
+		return mountains
+	
+	if between(temp, 2, 7):
+		return snow
+	
+	if between(temp, 7, 12):
+		return plains
+	
+	if between(temp, 12, 18):
+		return desert
+	
+	
+	return water
+
+
+
+
 
 
 
@@ -116,38 +161,18 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 			var _y = chunk_pos.y * chunk_size + y
 			var pos = Vector2i(_x, _y)
 			
-			var cont = round(abs(contenentilness.get_noise_2d(_x, _y) * 20.0)) # -10 - -12
-			var temp = roundi(abs(temperature.get_noise_2d(_x, _y) * 20.0)) # -17 - 16
-			var alt = roundi(abs(altitude.get_noise_2d(_x, _y) * 70.0)) # -60 - 57
-			var moist = round(abs(moisture.get_noise_2d(_x, _y) * 20.0)) # -17 - 16
+			var cont = round(abs(contenentilness.get_noise_2d(_x, _y) * 20.0)) # 0 - 14
+			var temp = roundi(abs(temperature.get_noise_2d(_x, _y) * 20.0)) # 2 - 18
+			var alt = roundi(abs(altitude.get_noise_2d(_x, _y) * 70.0)) # 0 - 44
+			var moist = round(abs(moisture.get_noise_2d(_x, _y) * 20.0)) # 2 - 18
+			
 			#var tree = roundi(abs(trees.get_noise_2d(_x, _y) * 70.0))
 			
-			temp = min(temp, 12)
-			alt = min(alt, 12)
 			
-			if cont < -10:
-				map.set_cell(pos, source_id, water)
+			var biome = get_biome(temp, moist, alt)
 			
-			elif alt < 6:
-				map.set_cell(pos, source_id, water)
+			map.set_cell(pos, 3, biome)
 			
-			elif alt < 7:
-				map.set_cell(pos, source_id, sand)
-			
-			elif between(alt, 10, 20) and between(temp, 3, 7) and between(moist, -5, 2):
-				map.set_cell(pos, source_id, mountains)
-			
-			elif between(alt, 9, 30) and between(temp, 5, 14) and between(moist, -3, 4):
-				map.set_cell(pos, source_id, forest)
-			
-			elif between(alt, 9, 25) and between(temp, -7, 5) and between(moist, -6, 3):
-				map.set_cell(pos, source_id, snow)
-			
-			elif between(alt, 9, 30) and between(temp, -17, 16) and between(moist, 10, 30):
-				map.set_cell(pos, source_id, sand)
-			
-			else:
-				map.set_cell(pos, source_id, plain)
 
 func _delete_chunk(chunk_pos: Vector2i) -> void:
 	for x in range(chunk_size):
@@ -165,7 +190,7 @@ func debug_scan():
 
 	for x in range(-600, 600):
 		for y in range(-600, 600):
-			var v = (moisture.get_noise_2d(x, y) * 20.0)
+			var v = round(abs(temperature.get_noise_2d(x, y) * 20.0))
 			min_val = min(min_val, v)
 			max_val = max(max_val, v)
 
