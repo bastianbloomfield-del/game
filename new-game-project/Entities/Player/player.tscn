@@ -124,7 +124,7 @@ collision_layer = 524289
 script = ExtResource("1_e6if8")
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 524288
+collision_layer = 524320
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 light_mask = 262144
