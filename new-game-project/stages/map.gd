@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var contenentilness = FastNoiseLite.new()
+@export var foliage_noise = FastNoiseLite.new()
 @export var temperature = FastNoiseLite.new()
 @export var altitude = FastNoiseLite.new()
 @export var moisture = FastNoiseLite.new()
@@ -15,10 +15,10 @@ var previous_chunk = Vector2i()
 
 var active_chunks = {}
 
-@onready var Player = get_tree().current_scene.get_node("player")
+@onready var Player = $"../y-sort/player"
 @export var biomes = []
 
-@onready var foliage: TileMapLayer = $foliage
+@onready var foliage: TileMapLayer = $"../y-sort/foliage"
 @onready var biome: TileMapLayer = $biomes
 @onready var ocean: TileMapLayer = $ocean
 
@@ -43,24 +43,25 @@ var ice_spikes = Vector2i(4,3)
 
 var mountains = Vector2i(2,4)
 
-var grass = Vector2i(0,4)
-var flowers = Vector2i(1,4)
+var tree_1 = Vector2i(0,0)
+var grass_1 = Vector2i(0,4)
 
 func _ready() -> void:
 	temperature.seed = randi()
 	altitude.seed = randi()
 	moisture.seed = randi()
-	contenentilness.seed = randi()
-
-	contenentilness.frequency = 0.0034
+	foliage_noise.seed = randi()
+	
 	temperature.frequency = 0.0043
 	moisture.frequency = 0.0043
 	altitude.frequency = 0.001
-
 	trees.seed = randi()
 
 	_update_player_chunk()
 	_load_visible_chunks()
+	debug()
+	
+#	Player.global_position = find_valid_spawn(Player.global_position)
 
 func _process(delta: float) -> void:
 	_update_player_chunk()
@@ -70,57 +71,6 @@ func _process(delta: float) -> void:
 
 	previous_chunk = current_chunk
 
-func get_biome(temp: int, moist: int, alt: int) -> Vector2i:
-	if alt < 6: # oceans
-		return water
-	
-	if alt < 8: # beaches
-		return beach
-	
-	if alt > 41: # mountains
-		return mountains
-	
-	
-	#cold
-	if between(temp, 2, 8):
-		
-		if between(moist, 2, 5):
-			return ice_spikes  # 15% have 3/ 
-		
-		if between(moist, 5, 7):
-			return ice_sheets
-		
-		if between(moist, 7, 11):
-			return tundra
-			
-		
-		return snow
-	
-	#warm
-	if between(temp, 8, 13):
-		if between(moist, 2, 5):
-			return hills  # 15% have 3/ 
-		
-		if between(moist, 5, 7):
-			return marshs
-		
-		if between(moist, 7, 11):
-			return forests # 25% have 4
-		
-		
-		return plains # 50% leave 8 
-	
-	#hot
-	if between(temp, 12, 18):
-		
-		if between(moist, 2, 5):
-			return mesa  # 15% have 3/ 
-		
-		if between(moist, 7, 11):
-			return savanna
-		return desert
-		
-	return water
 
 func _update_player_chunk() -> void:
 	var pos = biome.local_to_map(Player.global_position)
@@ -145,6 +95,8 @@ func _load_visible_chunks() -> void:
 			_delete_chunk(chunk)
 			active_chunks.erase(chunk)
 
+
+
 func _generate_chunk(chunk_pos: Vector2i) -> void:
 	for x in range(chunk_size):
 		for y in range(chunk_size):
@@ -153,14 +105,76 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 			var _y = chunk_pos.y * chunk_size + y
 			var pos = Vector2i(_x, _y)
 			
-			var cont = abs(roundi(contenentilness.get_noise_2d(_x, _y) * 20.0))
-			var temp = abs(roundi(temperature.get_noise_2d(_x, _y) * 20.0)) # 2 - 18
-			var alt = abs(roundi(altitude.get_noise_2d(_x, _y) * 70.0)) # 0 - 13
-			var moist = abs(roundi(moisture.get_noise_2d(_x, _y) * 20.0)) # 2 -18
+			var alt = abs(roundi(altitude.get_noise_2d(_x, _y) * 70.0)) # 0 - 43
+			var foil = abs(roundi(foliage_noise.get_noise_2d(_x, _y) * -10.0)) #1-9
+			var temp = abs(roundi(temperature.get_noise_2d(_x, _y) * -20.0)) #3 - 18
+			var moist = abs(roundi(moisture.get_noise_2d(_x, _y) * -20.0)) #3 - 18
 			
+			if alt < 7:
+				ocean.set_cell(pos, source_id, water)
+				continue
 			
-			var biome_tile = get_biome(temp, moist, alt)
-			biome.set_cell(pos, source_id, biome_tile)
+			if alt < 9:
+				biome.set_cell(pos, source_id, beach)
+				continue
+			
+			if alt > 41:
+				biome.set_cell(pos, source_id, mountains)
+				continue
+			
+			if between(temp, 2, 8):
+				
+				if between(moist, 2, 5):
+					biome.set_cell(pos, source_id, ice_spikes)
+					continue
+				
+				if between(moist, 5, 7):
+					biome.set_cell(pos, source_id, ice_sheets)
+					continue
+				
+				if between(moist, 7, 11):
+					biome.set_cell(pos, source_id, tundra)
+					continue
+				
+				biome.set_cell(pos, source_id, snow)
+				continue
+
+			if between(temp, 8, 13):
+				if between(moist, 2, 5):
+					biome.set_cell(pos, source_id, hills)
+					continue
+				
+				if between(moist, 5, 7):
+					biome.set_cell(pos, source_id, marshs)
+					continue
+				
+				if between(moist, 7, 11):
+					biome.set_cell(pos, source_id, forests)
+					if between(foil, 1 ,6):
+						foliage.set_cell(pos, source_id, tree_1)
+					
+					continue
+				if between(moist, 2, 19):
+					biome.set_cell(pos, source_id, plains)
+					foliage.set_cell(pos, source_id, grass_1)
+				
+				continue
+
+			if between(temp, 12, 19):
+				
+				if between(moist, 2, 5):
+					biome.set_cell(pos, source_id, mesa)
+					continue
+				
+				if between(moist, 7, 11):
+					biome.set_cell(pos, source_id, savanna)
+					continue
+				
+				biome.set_cell(pos, source_id, desert)
+				continue
+			
+			biome.set_cell(pos, source_id, water)
+
 
 func _delete_chunk(chunk_pos: Vector2i) -> void:
 	for x in range(chunk_size):
@@ -173,3 +187,31 @@ func _delete_chunk(chunk_pos: Vector2i) -> void:
 
 func between(value: float, start: float, end: float) -> bool:
 	return start <= value and value < end
+
+func debug():
+	var min_val := 999999.0
+	var max_val := -999999.0
+
+	for x in range(-600, 600):
+		for y in range(-600, 600):
+			var v = abs((altitude.get_noise_2d(x, y) * -70.0))
+			min_val = min(min_val, v)
+			max_val = max(max_val, v)
+
+	print("Temperature noise min:", min_val) 
+	print("Temperature noise max:", max_val)
+
+#func find_valid_spawn(start_pos: Vector2) -> Vector2:
+#	var map_pos = biome.local_to_map(start_pos)
+#	
+#	for radius in range(1, 100):
+#		for x in range(-radius, radius + 1):
+#			for y in range(-radius, radius + 1):
+#				
+#				var check_pos = map_pos + Vector2i(x, y)
+#				var biome_tile = biome.get_cell_source_id(check_pos)
+#				
+#				if biome_tile != -1:
+#					return biome.map_to_local(check_pos)
+#					
+#	return start_pos

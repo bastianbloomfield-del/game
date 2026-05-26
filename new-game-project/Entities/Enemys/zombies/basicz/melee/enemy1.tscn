@@ -28,6 +28,7 @@ texture = ExtResource("1_sc6mq")
 light_mask = 524288
 visibility_layer = 262144
 shape = SubResource("CircleShape2D_hi5xp")
+disabled = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 

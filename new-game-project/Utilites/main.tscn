@@ -1,14 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://4e06yvh1jfd3"]
+[gd_scene load_steps=18 format=4 uid="uid://4e06yvh1jfd3"]
 
 [ext_resource type="Script" path="res://stages/map.gd" id="2_lwhfw"]
+[ext_resource type="Texture2D" uid="uid://be8hw1emxaswg" path="res://Assets/foliage.png" id="2_qf3ay"]
 [ext_resource type="Texture2D" uid="uid://djf8dpp0sjtji" path="res://Assets/biome map.png" id="2_rdhlb"]
 [ext_resource type="PackedScene" uid="uid://ckx7rja415ix3" path="res://Entities/Player/player.tscn" id="3_ofavo"]
 [ext_resource type="PackedScene" uid="uid://np3fkcu61l2b" path="res://misc/day_night/day_night.tscn" id="6_1blmt"]
 [ext_resource type="PackedScene" uid="uid://craykmotdx4qg" path="res://misc/gun.tscn" id="6_hh6i4"]
-[ext_resource type="PackedScene" uid="uid://mrv1n5b8fp0l" path="res://Common/Houses/house.tscn" id="8_ctlsv"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_k4x4u"]
-frequency = 0.0034
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tljlo"]
+noise_type = 2
+frequency = 0.1992
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_2u7tv"]
 noise_type = 2
@@ -59,11 +60,12 @@ texture_region_size = Vector2i(8, 8)
 1:0/animation_frame_2/duration = 1.0
 1:0/animation_frame_3/duration = 1.0
 1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
 
 [sub_resource type="TileSet" id="TileSet_sn4pe"]
 tile_size = Vector2i(8, 8)
-physics_layer_0/collision_layer = 33
-physics_layer_0/collision_mask = 33
+physics_layer_0/collision_layer = 0
+physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_a3p8n")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_i8sp4"]
@@ -71,18 +73,40 @@ vertices = PackedVector2Array(368.977, 288, -244.961, 288, -243.039, -189, 368.0
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-253, -199, 378, -199, 379, 297.999, -255, 297.999)])
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_osg6d"]
+texture = ExtResource("2_qf3ay")
+texture_region_size = Vector2i(8, 8)
+0:4/0 = 0
+1:4/0 = 0
+0:0/size_in_atlas = Vector2i(1, 2)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 4)
+0:0/0/y_sort_origin = -1
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1.0625, -1.125, 1.0625, -1.125, 1, 1.0625, -1.125, 1)
+1:0/size_in_atlas = Vector2i(1, 2)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 4)
+1:0/0/y_sort_origin = -1
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1.0625, -1.125, 1.0625, -1.125, 1, 1.0625, -1.125, 1)
+
+[sub_resource type="TileSet" id="TileSet_db0xv"]
+tile_size = Vector2i(8, 8)
+physics_layer_0/collision_layer = 33
+physics_layer_0/collision_mask = 33
+sources/1 = SubResource("TileSetAtlasSource_osg6d")
+
 [node name="Main" type="Node2D"]
 
 [node name="world" type="Node2D" parent="."]
 script = ExtResource("2_lwhfw")
-contenentilness = SubResource("FastNoiseLite_k4x4u")
+foliage_noise = SubResource("FastNoiseLite_tljlo")
 temperature = SubResource("FastNoiseLite_2u7tv")
 altitude = SubResource("FastNoiseLite_50owd")
 moisture = SubResource("FastNoiseLite_vbyrx")
 
-[node name="foliage" type="TileMapLayer" parent="world"]
-
 [node name="biomes" type="TileMapLayer" parent="world"]
+visible = false
+tile_map_data = PackedByteArray("AAD9////AAACAAIAAAA=")
 tile_set = SubResource("TileSet_mcbek")
 
 [node name="ocean" type="TileMapLayer" parent="world"]
@@ -90,19 +114,27 @@ tile_set = SubResource("TileSet_sn4pe")
 
 [node name="day_night" parent="." instance=ExtResource("6_1blmt")]
 
-[node name="house" parent="." instance=ExtResource("8_ctlsv")]
-position = Vector2(0.5, 2.02806)
+[node name="y-sort" type="Node2D" parent="."]
+y_sort_enabled = true
 
-[node name="player" parent="." instance=ExtResource("3_ofavo")]
-position = Vector2(64, 64)
-scale = Vector2(0.348705, 0.3859)
+[node name="player" parent="y-sort" instance=ExtResource("3_ofavo")]
+z_index = 1
+scale = Vector2(0.5, 0.5)
 
-[node name="Camera2D" type="Camera2D" parent="player"]
-zoom = Vector2(0.5, 0.5)
+[node name="Camera2D" type="Camera2D" parent="y-sort/player"]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="player"]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="y-sort/player"]
 position = Vector2(-103.517, -211.35)
 scale = Vector2(2.86775, 2.59135)
 navigation_polygon = SubResource("NavigationPolygon_i8sp4")
 
-[node name="gun" parent="player" instance=ExtResource("6_hh6i4")]
+[node name="gun" parent="y-sort/player" instance=ExtResource("6_hh6i4")]
+
+[node name="foliage" type="TileMapLayer" parent="y-sort"]
+z_index = 1
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AADY/wcAAQABAAAAAADd/wgAAQAAAAAAAADY/wsAAQAAAAAAAADR/wcAAQAAAAAAAADh/wwAAQAAAAAAAADd/wsAAQABAAAAAADS/wwAAQABAAAAAADd/wQAAQABAAAAAADT/wMAAQABAAAAAAA=")
+tile_set = SubResource("TileSet_db0xv")
+y_sort_origin = 1

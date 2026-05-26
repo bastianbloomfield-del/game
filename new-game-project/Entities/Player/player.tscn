@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bhyacwx45q158" path="res://Entities/Player/playerset.png" id="2_0jcr1"]
 [ext_resource type="Script" path="res://Utilites/components/Hurtbox.gd" id="3_qqmeq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgffs"]
-size = Vector2(21.5143, 20.3118)
+[sub_resource type="CircleShape2D" id="CircleShape2D_1l4g6"]
+radius = 12.9086
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_efvks"]
 atlas = ExtResource("2_0jcr1")
@@ -110,7 +110,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aonp7"]
-radius = 2.37909
+radius = 9.68143
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ltcuw"]
 
@@ -118,19 +118,14 @@ radius = 2.37909
 bg_color = Color(0.28868, 0.654131, 0.764194, 1)
 
 [node name="player" type="CharacterBody2D"]
-top_level = true
-scale = Vector2(0.929615, 0.984649)
+y_sort_enabled = true
 collision_layer = 524289
 script = ExtResource("1_e6if8")
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 524320
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 262144
 visibility_layer = 524288
-position = Vector2(-4.29153e-06, 0)
-shape = SubResource("RectangleShape2D_wgffs")
+shape = SubResource("CircleShape2D_1l4g6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-0.0207625, -0.0219995)
