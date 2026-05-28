@@ -22,7 +22,7 @@ var active_chunks = {}
 @onready var biome: TileMapLayer = $biomes
 @onready var ocean: TileMapLayer = $ocean
 
-var source_id = 0
+var source_id = 1
 
 var water = Vector2i(1,0)
 
@@ -106,7 +106,7 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 			var pos = Vector2i(_x, _y)
 			
 			var alt = abs(roundi(altitude.get_noise_2d(_x, _y) * 70.0)) # 0 - 43
-			var foil = abs(roundi(foliage_noise.get_noise_2d(_x, _y) * -10.0)) #1-9
+			var foil = abs(roundi(foliage_noise.get_noise_2d(_x, _y) * -10.0)) # 1-9
 			var temp = abs(roundi(temperature.get_noise_2d(_x, _y) * -20.0)) #3 - 18
 			var moist = abs(roundi(moisture.get_noise_2d(_x, _y) * -20.0)) #3 - 18
 			
@@ -150,8 +150,8 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 				
 				if between(moist, 7, 11):
 					biome.set_cell(pos, source_id, forests)
-					if between(foil, 1 ,6):
-						foliage.set_cell(pos, source_id, tree_1)
+					#if between(foil, 0 ,10):
+					foliage.set_cell(pos, source_id, tree_1)
 					
 					continue
 				if between(moist, 2, 19):
@@ -194,7 +194,7 @@ func debug():
 
 	for x in range(-600, 600):
 		for y in range(-600, 600):
-			var v = abs((altitude.get_noise_2d(x, y) * -70.0))
+			var v = abs((foliage_noise.get_noise_2d(x, y) * -10.0))
 			min_val = min(min_val, v)
 			max_val = max(max_val, v)
 
