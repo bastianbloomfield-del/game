@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Utilites/components/Hurtbox.gd" id="3_qqmeq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1l4g6"]
-radius = 12.9086
+radius = 7.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_efvks"]
 atlas = ExtResource("2_0jcr1")

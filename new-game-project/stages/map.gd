@@ -43,7 +43,8 @@ var ice_spikes = Vector2i(4,3)
 
 var mountains = Vector2i(2,4)
 
-var tree_1 = Vector2i(0,0)
+var tree_1 = Vector2i(1,0)
+var tree_2 = Vector2i(0,0)
 var grass_1 = Vector2i(0,4)
 
 func _ready() -> void:
@@ -61,7 +62,7 @@ func _ready() -> void:
 	_load_visible_chunks()
 	debug()
 	
-#	Player.global_position = find_valid_spawn(Player.global_position)
+	Player.global_position = find_valid_spawn(Player.global_position)
 
 func _process(delta: float) -> void:
 	_update_player_chunk()
@@ -94,8 +95,6 @@ func _load_visible_chunks() -> void:
 		if chunk not in needed_chunks:
 			_delete_chunk(chunk)
 			active_chunks.erase(chunk)
-
-
 
 func _generate_chunk(chunk_pos: Vector2i) -> void:
 	for x in range(chunk_size):
@@ -150,13 +149,17 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 				
 				if between(moist, 7, 11):
 					biome.set_cell(pos, source_id, forests)
-					#if between(foil, 0 ,10):
-					foliage.set_cell(pos, source_id, tree_1)
+					if between(foil, 0 ,6):
+						foliage.set_cell(pos, source_id, tree_1)
 					
 					continue
 				if between(moist, 2, 19):
 					biome.set_cell(pos, source_id, plains)
-					foliage.set_cell(pos, source_id, grass_1)
+					
+					if between(foil, 1, 3):
+						foliage.set_cell(pos, source_id, tree_2)
+						
+					
 				
 				continue
 
@@ -174,7 +177,6 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 				continue
 			
 			biome.set_cell(pos, source_id, water)
-
 
 func _delete_chunk(chunk_pos: Vector2i) -> void:
 	for x in range(chunk_size):
@@ -201,17 +203,17 @@ func debug():
 	print("Temperature noise min:", min_val) 
 	print("Temperature noise max:", max_val)
 
-#func find_valid_spawn(start_pos: Vector2) -> Vector2:
-#	var map_pos = biome.local_to_map(start_pos)
-#	
-#	for radius in range(1, 100):
-#		for x in range(-radius, radius + 1):
-#			for y in range(-radius, radius + 1):
-#				
-#				var check_pos = map_pos + Vector2i(x, y)
-#				var biome_tile = biome.get_cell_source_id(check_pos)
-#				
-#				if biome_tile != -1:
-#					return biome.map_to_local(check_pos)
-#					
-#	return start_pos
+func find_valid_spawn(start_pos: Vector2) -> Vector2:
+	var map_pos = biome.local_to_map(start_pos)
+	
+	for radius in range(1, 100):
+		for x in range(-radius, radius + 1):
+			for y in range(-radius, radius + 1):
+				
+				var check_pos = map_pos + Vector2i(x, y)
+				var biome_tile = biome.get_cell_source_id(check_pos)
+				
+				if biome_tile != -1:
+					return biome.map_to_local(check_pos)
+					
+	return start_pos
