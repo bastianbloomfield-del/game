@@ -43,9 +43,8 @@ var ice_spikes = Vector2i(4,3)
 
 var mountains = Vector2i(2,4)
 
-var tree_1 = Vector2i(1,0)
-var tree_2 = Vector2i(0,0)
-var grass_1 = Vector2i(0,4)
+var tree_1 = Vector2i(0,0)
+var tree_2 = Vector2i(2,0)
 
 func _ready() -> void:
 	temperature.seed = randi()
@@ -109,7 +108,7 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 			var temp = abs(roundi(temperature.get_noise_2d(_x, _y) * -20.0)) #3 - 18
 			var moist = abs(roundi(moisture.get_noise_2d(_x, _y) * -20.0)) #3 - 18
 			
-			if alt < 7:
+			if alt < 8:
 				ocean.set_cell(pos, source_id, water)
 				continue
 			
@@ -150,14 +149,14 @@ func _generate_chunk(chunk_pos: Vector2i) -> void:
 				if between(moist, 7, 11):
 					biome.set_cell(pos, source_id, forests)
 					if between(foil, 0 ,6):
-						foliage.set_cell(pos, source_id, tree_1)
+						foliage.set_cell(pos, 0, tree_2)
 					
 					continue
 				if between(moist, 2, 19):
 					biome.set_cell(pos, source_id, plains)
 					
 					if between(foil, 1, 3):
-						foliage.set_cell(pos, source_id, tree_2)
+						foliage.set_cell(pos, 0, tree_1)
 						
 					
 				

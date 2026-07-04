@@ -33,7 +33,7 @@ var effect = ""
 
 
 #ui
-@export var MOD_UI: mod_ui
+
 
 
 func _ready() -> void:

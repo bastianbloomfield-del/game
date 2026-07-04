@@ -16,4 +16,4 @@ var player_inventory: Array
 
 var add_mod: Item 
 
-var inventory_ui: bool
+var inventory_ui: bool = false

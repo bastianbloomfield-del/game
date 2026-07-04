@@ -2,25 +2,25 @@ extends Control
 class_name mod_ui
 
 @onready var control: mod_ui = $"."
-@onready var ui: CanvasLayer = $UI
+@onready var ui: VBoxContainer = $"."
 
 var scope_next = 0
 var barrel_next = 0
 var ammo_next = 0
 
-@onready var scope_mod_displays: Control = $"UI/mod inv/scope/scope mod displays"
-@onready var barrel_mod_displays: Control = $"UI/mod inv/barrel/barrel mod displays"
-@onready var ammo_mod_displays: Control = $"UI/mod inv/ammo/ammo mod displays"
+@onready var scope_mod_displays: Control = $"scope/scope mod displays"
+@onready var barrel_mod_displays: Control = $"barrel/barrel mod displays"
+@onready var ammo_mod_displays: Control = $"ammo/ammo mod displays"
 
-@onready var scope_slots: HBoxContainer = $"UI/mod inv/scope/scope mod displays/scope_slots"
-@onready var barrel_slots: HBoxContainer = $"UI/mod inv/barrel/barrel mod displays/barrel_slots"
-@onready var ammo_slots: HBoxContainer = $"UI/mod inv/ammo/ammo mod displays/ammo_slots"
+@onready var scope_slots: HBoxContainer = $"scope/scope mod displays/scope_slots"
+@onready var barrel_slots: HBoxContainer = $"barrel/barrel mod displays/barrel_slots"
+@onready var ammo_slots: HBoxContainer = $"ammo/ammo mod displays/ammo_slots"
 
 @export var scope_inv: scope_mod_inv
 @export var barrel_inv: barrel_mod_inv
 @export var ammo_inv: ammo_mod_inv
 
-@onready var player_inventory: GridContainer = $UI/player_inventory
+@onready var player_inventory: GridContainer = $"../player_inventory"
 
 var original
 
@@ -48,16 +48,13 @@ func _on_scope_pressed() -> void:
 	scope_next = 1 - scope_next
 	scope_mod_displays.visible = scope_next == 1
 
-
 func _on_barrel_pressed() -> void:
 	barrel_next = 1 - barrel_next
 	barrel_mod_displays.visible = barrel_next == 1
 
-
 func _on_ammo_pressed() -> void:
 	ammo_next = 1 - ammo_next
 	ammo_mod_displays.visible = ammo_next == 1
-
 
 func add_mod_to_inventory(item: Item) -> void:
 	if item == null:
@@ -71,7 +68,6 @@ func add_mod_to_inventory(item: Item) -> void:
 			return
 
 	print("Inventory full")
-
 
 func has_change() -> bool:
 	if original != Global.add_mod:

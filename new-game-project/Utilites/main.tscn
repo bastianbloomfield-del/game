@@ -1,11 +1,13 @@
-[gd_scene load_steps=18 format=4 uid="uid://4e06yvh1jfd3"]
+[gd_scene load_steps=22 format=4 uid="uid://4e06yvh1jfd3"]
 
+[ext_resource type="Texture2D" uid="uid://bscbamlcxsw8n" path="res://stages/plains.png" id="2_8l05u"]
 [ext_resource type="Script" path="res://stages/map.gd" id="2_lwhfw"]
 [ext_resource type="Texture2D" uid="uid://be8hw1emxaswg" path="res://Assets/foliage.png" id="2_qf3ay"]
 [ext_resource type="Texture2D" uid="uid://djf8dpp0sjtji" path="res://Assets/biome map.png" id="2_rdhlb"]
 [ext_resource type="PackedScene" uid="uid://ckx7rja415ix3" path="res://Entities/Player/player.tscn" id="3_ofavo"]
 [ext_resource type="PackedScene" uid="uid://np3fkcu61l2b" path="res://misc/day_night/day_night.tscn" id="6_1blmt"]
 [ext_resource type="PackedScene" uid="uid://craykmotdx4qg" path="res://misc/gun.tscn" id="6_hh6i4"]
+[ext_resource type="PackedScene" uid="uid://xm1f6pxrwtf6" path="res://main_ui.tscn" id="8_jlp2s"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_tljlo"]
 noise_type = 2
@@ -21,6 +23,31 @@ frequency = 0.001
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vbyrx"]
 noise_type = 2
 frequency = 0.0043
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ij244"]
+texture = ExtResource("2_8l05u")
+texture_region_size = Vector2i(8, 8)
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(1, 4)
+2:0/size_in_atlas = Vector2i(1, 2)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 4)
+0:2/0 = 0
+0:3/0 = 0
+2:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+1:2/size_in_atlas = Vector2i(2, 1)
+1:2/0 = 0
+1:2/0/texture_origin = Vector2i(-4, 0)
+3:3/size_in_atlas = Vector2i(1, 2)
+3:3/0 = 0
+3:3/0/texture_origin = Vector2i(0, 4)
+4:3/size_in_atlas = Vector2i(1, 2)
+4:3/0 = 0
+4:3/0/texture_origin = Vector2i(0, 4)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_of65j"]
 texture = ExtResource("2_rdhlb")
@@ -50,6 +77,7 @@ texture_region_size = Vector2i(8, 8)
 [sub_resource type="TileSet" id="TileSet_mcbek"]
 tile_size = Vector2i(8, 8)
 sources/1 = SubResource("TileSetAtlasSource_of65j")
+sources/0 = SubResource("TileSetAtlasSource_ij244")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a3p8n"]
 texture = ExtResource("2_rdhlb")
@@ -73,6 +101,31 @@ vertices = PackedVector2Array(368.977, 288, -244.961, 288, -243.039, -189, 368.0
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-253, -199, 378, -199, 379, 297.999, -255, 297.999)])
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gjpaa"]
+texture = ExtResource("2_8l05u")
+texture_region_size = Vector2i(8, 8)
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(1, 4)
+2:0/size_in_atlas = Vector2i(1, 2)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 4)
+0:2/0 = 0
+1:2/size_in_atlas = Vector2i(2, 1)
+1:2/0 = 0
+1:2/0/texture_origin = Vector2i(-4, 0)
+0:3/0 = 0
+2:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:3/size_in_atlas = Vector2i(1, 2)
+3:3/0 = 0
+3:3/0/texture_origin = Vector2i(0, 4)
+4:3/size_in_atlas = Vector2i(1, 2)
+4:3/0 = 0
+4:3/0/texture_origin = Vector2i(0, 4)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_osg6d"]
 texture = ExtResource("2_qf3ay")
 texture_region_size = Vector2i(8, 8)
@@ -94,6 +147,7 @@ tile_size = Vector2i(8, 8)
 physics_layer_0/collision_layer = 33
 physics_layer_0/collision_mask = 33
 sources/1 = SubResource("TileSetAtlasSource_osg6d")
+sources/0 = SubResource("TileSetAtlasSource_gjpaa")
 
 [node name="Main" type="Node2D"]
 
@@ -106,7 +160,7 @@ altitude = SubResource("FastNoiseLite_50owd")
 moisture = SubResource("FastNoiseLite_vbyrx")
 
 [node name="biomes" type="TileMapLayer" parent="world"]
-tile_map_data = PackedByteArray("AAD9////AAACAAIAAAA=")
+tile_map_data = PackedByteArray("AAC2//z/AAABAAgAAAC1//z/AAAAAAgAAAA=")
 tile_set = SubResource("TileSet_mcbek")
 
 [node name="ocean" type="TileMapLayer" parent="world"]
@@ -135,6 +189,8 @@ navigation_polygon = SubResource("NavigationPolygon_i8sp4")
 [node name="foliage" type="TileMapLayer" parent="y-sort"]
 z_index = 1
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AADY/wcAAQABAAAAAADd/wgAAQAAAAAAAADY/wsAAQAAAAAAAADR/wcAAQAAAAAAAADh/wwAAQAAAAAAAADd/wsAAQABAAAAAADS/wwAAQABAAAAAADd/wQAAQABAAAAAADT/wMAAQABAAAAAADX/wEAAQABAAAAAADY/wEAAQABAAAAAAA=")
+tile_map_data = PackedByteArray("AADY/wcAAQABAAAAAADd/wgAAQAAAAAAAADY/wsAAQAAAAAAAADR/wcAAQAAAAAAAADh/wwAAQAAAAAAAADd/wsAAQABAAAAAADS/wwAAQABAAAAAADd/wQAAQABAAAAAADT/wMAAQABAAAAAADX/wEAAQABAAAAAADY/wEAAQABAAAAAACz/zMAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_db0xv")
 y_sort_origin = 1
+
+[node name="main UI" parent="." instance=ExtResource("8_jlp2s")]
