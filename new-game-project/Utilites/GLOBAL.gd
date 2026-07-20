@@ -17,3 +17,4 @@ var player_inventory: Array
 var add_mod: Item 
 
 var inventory_ui: bool = false
+var player_health: int = 100

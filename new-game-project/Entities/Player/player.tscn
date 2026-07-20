@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ckx7rja415ix3"]
+[gd_scene load_steps=19 format=3 uid="uid://ckx7rja415ix3"]
 
 [ext_resource type="Script" path="res://Entities/Player/player.gd" id="1_e6if8"]
 [ext_resource type="Texture2D" uid="uid://bhyacwx45q158" path="res://Entities/Player/playerset.png" id="2_0jcr1"]
@@ -112,11 +112,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_aonp7"]
 radius = 9.68143
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ltcuw"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t8wyf"]
-bg_color = Color(0.28868, 0.654131, 0.764194, 1)
-
 [node name="player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 524289
@@ -158,27 +153,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="healthbar" type="ProgressBar" parent="ui/Control"]
-z_index = 1
-layout_mode = 0
-offset_left = 272.0
-offset_top = 568.0
-offset_right = 928.0
-offset_bottom = 640.0
-theme_override_styles/background = SubResource("StyleBoxEmpty_ltcuw")
-theme_override_styles/fill = SubResource("StyleBoxFlat_t8wyf")
-value = 100.0
-show_percentage = false
-
-[node name="ColorRect" type="ColorRect" parent="ui/Control/healthbar"]
-show_behind_parent = true
-layout_mode = 0
-offset_left = -8.0
-offset_top = -8.0
-offset_right = 664.0
-offset_bottom = 80.0
-color = Color(0.230315, 0.230315, 0.230315, 1)
-
 [node name="xp bar" type="ColorRect" parent="ui/Control"]
 layout_mode = 0
 offset_left = 264.0
@@ -192,14 +166,6 @@ offset_left = 1075.0
 offset_top = 52.0
 offset_right = 1099.0
 offset_bottom = 76.0
-
-[node name="coins" type="Label" parent="ui/Control"]
-layout_mode = 0
-offset_right = 128.0
-offset_bottom = 64.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 46
-text = "100"
 
 [node name="hit_wait" type="Timer" parent="."]
 

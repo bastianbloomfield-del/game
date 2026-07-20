@@ -12,13 +12,9 @@ class_name player
 @onready var ui: CanvasLayer = $ui
 
 #healthbar
-@onready var healthbar = $ui/Control/healthbar
-@export var health = 100
+@export var health = 80
 
 #coins
-@onready var coins_display: Label = $ui/Control/coins
-
-
 
 
 @onready var hit_wait: Timer = $hit_wait
@@ -41,14 +37,11 @@ func _physics_process(delta: float) -> void:
 			print("11111111")
 			speed =+ CardsEffects.player_speed
 			
-			healthbar.max_value =+ CardsEffects.player_health
-			health =+ CardsEffects.player_health
+			#healthbar.max_value =+ CardsEffects.player_health - move to UI
+			health =+ CardsEffects.player_health 
 		
 		once == 1
 		
-	
-	
-	
 	if Input.is_action_pressed("openclose inventory") and hold == 0:
 		Global.inventory_ui = true
 		await get_tree().create_timer(time).timeout
@@ -61,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	if Global.main_ui == false:
 		ui.visible = false
 		
-		coins_display.text = str(Global.coins)
+		#coins_display.text = str(Global.coins)
 		
 	else: 
 		ui.visible = true
@@ -94,17 +87,14 @@ func _physics_process(delta: float) -> void:
 
 func take_damage(damage):
 	health -= damage
-	healthbar.value = health
+	#healthbar.value = health
+	Global.player_health = health
 	
 	if health <= 0:
 		pass
 	
 	animated_player.play("boy(damage)")
 	
-
-
-
-
 
 func _on_damage_recivier_hit(damage: Variant, effect: Variant) -> void:
 	effect = effect
@@ -116,3 +106,12 @@ func _on_check_box_toggled(toggled_on: bool) -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+
+const TIMER_LIMIT = 2.0
+var timer = 0.0
+
+func _process(delta):
+	timer += delta
+	if timer > TIMER_LIMIT: # Prints every 2 seconds
+		timer = 0.0
+		print("fps: " + str(Engine.get_frames_per_second()))

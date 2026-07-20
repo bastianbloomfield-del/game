@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://xm1f6pxrwtf6"]
+[gd_scene load_steps=19 format=3 uid="uid://xm1f6pxrwtf6"]
 
 [ext_resource type="PackedScene" uid="uid://6t5o206o1my8" path="res://Common/weapons/Ranged/slot.tscn" id="1_au1bk"]
 [ext_resource type="Script" path="res://Utilites/UI/mod_ui.gd" id="1_gxxjx"]
@@ -12,7 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://b770pe6sqiri1" path="res://Assets/ammo_display.png" id="7_jyo1b"]
 [ext_resource type="Resource" uid="uid://bplw3rusj2pk8" path="res://Common/weapons/modinvs/main_ammo_inv.tres" id="8_sc7br"]
 [ext_resource type="Script" path="res://Utilites/UI/player_inventory.gd" id="12_i7va4"]
-[ext_resource type="Script" path="res://Utilites/UI/player_info.gd" id="13_v0656"]
+[ext_resource type="Script" path="res://Utilites/UI/coins.gd" id="13_pk45d"]
+[ext_resource type="Script" path="res://Utilites/UI/health_bar.gd" id="14_y4nnu"]
 
 [sub_resource type="Resource" id="Resource_lfgwm"]
 script = ExtResource("4_nnye0")
@@ -21,10 +22,16 @@ title = "goda"
 icon = ExtResource("2_6xm7j")
 type = "scope"
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nqs71"]
+[sub_resource type="LabelSettings" id="LabelSettings_tmfgg"]
+font_size = 70
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l38rh"]
-bg_color = Color(0.975664, 4.57242e-06, 1.54018e-06, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_67e2o"]
+bg_color = Color(0.0617782, 0.195746, 0.287781, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lmcg0"]
+bg_color = Color(0.944573, 0.190795, 0, 1)
 
 [node name="main UI" type="Control"]
 layout_mode = 3
@@ -243,44 +250,38 @@ layout_mode = 2
 [node name="slot12" parent="Control/UI/player_inventory" instance=ExtResource("1_au1bk")]
 layout_mode = 2
 
-[node name="player info" type="Control" parent="Control/UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+[node name="coins" type="Label" parent="Control/UI"]
+offset_right = 200.0
+offset_bottom = 96.0
+text = "10000"
+label_settings = SubResource("LabelSettings_tmfgg")
+script = ExtResource("13_pk45d")
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -88.0
+offset_right = 320.0
+offset_bottom = -8.0
 grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-script = ExtResource("13_v0656")
-
-[node name="coins" type="Label" parent="Control/UI/player info"]
-layout_mode = 0
-offset_right = 128.0
-offset_bottom = 64.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 46
-text = "100"
-
-[node name="healthbar" type="ProgressBar" parent="Control/UI/player info"]
-z_index = 1
-layout_mode = 0
-offset_left = 272.0
-offset_top = 568.0
-offset_right = 928.0
-offset_bottom = 640.0
-theme_override_styles/background = SubResource("StyleBoxEmpty_nqs71")
-theme_override_styles/fill = SubResource("StyleBoxFlat_l38rh")
-value = 100.0
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_67e2o")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lmcg0")
 show_percentage = false
+script = ExtResource("14_y4nnu")
 
-[node name="ColorRect" type="ColorRect" parent="Control/UI/player info/healthbar"]
+[node name="ColorRect" type="ColorRect" parent="Control/UI/ProgressBar"]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -8.0
 offset_top = -8.0
-offset_right = 664.0
-offset_bottom = 80.0
-color = Color(0.230315, 0.230315, 0.230315, 1)
+offset_right = 648.0
+offset_bottom = 88.0
+color = Color(0.262932, 0.262932, 0.262932, 1)
 
 [connection signal="pressed" from="Control/UI/mod inv/scope" to="Control/UI/mod inv" method="_on_scope_pressed"]
 [connection signal="pressed" from="Control/UI/mod inv/barrel" to="Control/UI/mod inv" method="_on_barrel_pressed"]
